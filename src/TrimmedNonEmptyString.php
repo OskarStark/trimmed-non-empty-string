@@ -19,23 +19,22 @@ use Webmozart\Assert\Assert;
 final class TrimmedNonEmptyString
 {
     private string $value;
-    private string $message;
 
     /**
      * @throws \InvalidArgumentException
      */
-    private function __construct(string $value, string $message)
+    private function __construct(string $value, string $exceptionMessage)
     {
         $value = u($value)->trim()->toString();
 
-        Assert::stringNotEmpty($value, $message);
+        Assert::stringNotEmpty($value, $exceptionMessage);
 
         $this->value = $value;
     }
 
-    public static function fromString(string $value, string $message = ''): self
+    public static function fromString(string $value, string $exceptionMessage = ''): self
     {
-        return new self($value, $message);
+        return new self($value, $exceptionMessage);
     }
 
     public function toString(): string
