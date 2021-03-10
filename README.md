@@ -42,5 +42,5 @@ final class Name
 }
 ```
 
-[ci_badge]: https://github.com/OskarStark/env-var-extension/workflows/CI/badge.svg?branch=main
-[ci_link]: https://github.com/OskarStark/env-var-extension/actions?query=workflow:ci+branch:main
+[ci_badge]: https://github.com/OskarStark/trimmed-non-empty-string/workflows/CI/badge.svg?branch=main
+[ci_link]: https://github.com/OskarStark/trimmed-non-empty-string/actions?query=workflow:ci+branch:main
