@@ -37,6 +37,13 @@ final class TrimmedNonEmptyString
         return new self($value, $exceptionMessage);
     }
 
+    public static function from(mixed $value, string $exceptionMessage = ''): ?self
+    {
+        Assert::string($value, $exceptionMessage);
+
+        return self::fromString($value, $exceptionMessage);
+    }
+
     public function toString(): string
     {
         return $this->value;
