@@ -45,7 +45,7 @@ jobs:
             - name: PHPStan
               uses: docker://oskarstark/phpstan-ga:latest
               with:
-                  args: analyse src --level=7
+                  args: analyse src --level=max
 
     tests:
         name: "PHP ${{ matrix.php-version }} + ${{ matrix.dependencies }}"
