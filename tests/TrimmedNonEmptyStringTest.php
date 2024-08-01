@@ -24,11 +24,11 @@ final class TrimmedNonEmptyStringTest extends TestCase
     /**
      * @test
      */
-    public function try(): void
+    public function from(): void
     {
         $value = self::faker()->word;
 
-        $string = TrimmedNonEmptyString::try($value);
+        $string = TrimmedNonEmptyString::from($value);
 
         static::assertSame($value, $string->toString());
     }
@@ -56,11 +56,11 @@ final class TrimmedNonEmptyStringTest extends TestCase
      * @dataProvider \Ergebnis\Test\Util\DataProvider\BoolProvider::arbitrary()
      * @dataProvider \Ergebnis\Test\Util\DataProvider\FloatProvider::arbitrary()
      */
-    public function tryThrowsInvalidArgumentExceptionWithValue(mixed $value): void
+    public function fromThrowsInvalidArgumentExceptionWithValue(mixed $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        TrimmedNonEmptyString::try($value);
+        TrimmedNonEmptyString::from($value);
     }
 
     /**
