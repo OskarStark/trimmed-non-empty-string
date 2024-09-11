@@ -25,8 +25,8 @@ final class Name
 {
     private string $value;
 
-    private function __construct(string $value
-   ) {
+    private function __construct(string $value)
+    {
         $this->value = TrimmedNonEmptyString::fromString($value)->toString();
     }
 
