@@ -1,9 +1,16 @@
 # vim: set tabstop=8 softtabstop=8 noexpandtab:
-phpstan:
-	docker run --rm -it -w=/app -v ${PWD}:/app oskarstark/phpstan-ga:latest analyse src/ --level=max
+.PHONY: static-code-analysis
+static-code-analysis: vendor ## Runs a static code analysis with phpstan/phpstan
+	symfony php vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=-1
 
+.PHONY: static-code-analysis-baseline
+static-code-analysis-baseline: vendor ## Generates a baseline for static code analysis with phpstan/phpstan
+	symfony php vendor/bin/phpstan analyze --configuration=phpstan.neon --generate-baseline=phpstan-baseline.neon --memory-limit=-1
+
+.PHONY: cs
 cs:
-	docker run --rm -it -w /app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:2.18.2
+	PHP_CS_FIXER_IGNORE_ENV=1 symfony php vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --diff --verbose
 
+.PHONY: test
 test:
-	php vendor/bin/phpunit -v
+	php vendor/bin/phpunit
