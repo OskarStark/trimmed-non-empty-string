@@ -19,7 +19,7 @@
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
-        "ergebnis/test-util": "^1.4",
+        "ergebnis/test-util": "^1.6",
         "friendsofphp/php-cs-fixer": "2.18",
         "phpunit/phpunit": "^9.6"
     },
