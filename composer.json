@@ -19,13 +19,17 @@
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
+        "ergebnis/composer-normalize": "^2.45",
         "ergebnis/test-util": "^1.6",
         "friendsofphp/php-cs-fixer": "^3.70",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^9.6"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
     },
     "autoload": {
         "psr-4": {
