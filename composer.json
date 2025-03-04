@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=8.0",
-        "symfony/string": "^5.0 || ^6.0 || ^7.0",
+        "symfony/string": "^6.0 || ^7.0",
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
