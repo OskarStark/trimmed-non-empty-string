@@ -17,7 +17,7 @@ use function Symfony\Component\String\u;
 
 use Webmozart\Assert\Assert;
 
-final class TrimmedNonEmptyString
+final class TrimmedNonEmptyString implements \Stringable
 {
     /**
      * @var non-empty-string
@@ -53,6 +53,14 @@ final class TrimmedNonEmptyString
      * @return non-empty-string
      */
     public function toString(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    public function __toString(): string
     {
         return $this->value;
     }

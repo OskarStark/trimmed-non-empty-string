@@ -31,6 +31,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
         $string = TrimmedNonEmptyString::from($value);
 
         static::assertSame($value, $string->toString());
+        static::assertSame($value, (string) $string);
     }
 
     /**
@@ -43,6 +44,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
         $string = TrimmedNonEmptyString::fromString($value);
 
         static::assertSame($value, $string->toString());
+        static::assertSame($value, (string) $string);
     }
 
     /**
