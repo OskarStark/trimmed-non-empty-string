@@ -19,6 +19,9 @@ use Webmozart\Assert\Assert;
 
 final class TrimmedNonEmptyString
 {
+    /**
+     * @return non-empty-string
+     */
     private string $value;
 
     /**
@@ -45,6 +48,9 @@ final class TrimmedNonEmptyString
         return self::fromString($value, $exceptionMessage);
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function toString(): string
     {
         return $this->value;
