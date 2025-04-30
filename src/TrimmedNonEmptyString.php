@@ -19,6 +19,9 @@ use Webmozart\Assert\Assert;
 
 final class TrimmedNonEmptyString
 {
+    /**
+     * @var non-empty-string
+     */
     private string $value;
 
     /**
@@ -29,6 +32,7 @@ final class TrimmedNonEmptyString
         $value = u($value)->trim()->toString();
 
         Assert::stringNotEmpty($value, $exceptionMessage);
+        Assert::notWhitespaceOnly($value, $exceptionMessage);
 
         $this->value = $value;
     }
@@ -45,6 +49,9 @@ final class TrimmedNonEmptyString
         return self::fromString($value, $exceptionMessage);
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function toString(): string
     {
         return $this->value;
