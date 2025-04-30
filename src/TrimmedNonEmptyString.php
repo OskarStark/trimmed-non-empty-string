@@ -49,6 +49,9 @@ final class TrimmedNonEmptyString
         return self::fromString($value, $exceptionMessage);
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function toString(): string
     {
         return $this->value;
