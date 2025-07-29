@@ -37,6 +37,14 @@ class TrimmedNonEmptyString implements \Stringable
         $this->value = $value;
     }
 
+    /**
+     * @return non-empty-string
+     */
+    public function __toString(): string
+    {
+        return $this->value;
+    }
+
     public static function fromString(string $value, string $exceptionMessage = ''): self
     {
         return new self($value, $exceptionMessage);
@@ -53,14 +61,6 @@ class TrimmedNonEmptyString implements \Stringable
      * @return non-empty-string
      */
     public function toString(): string
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return non-empty-string
-     */
-    public function __toString(): string
     {
         return $this->value;
     }
