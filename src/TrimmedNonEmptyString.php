@@ -27,7 +27,7 @@ final class TrimmedNonEmptyString implements \Stringable
     /**
      * @throws \InvalidArgumentException
      */
-    private function __construct(string $value, string $exceptionMessage)
+    public function __construct(string $value, string $exceptionMessage = '')
     {
         $value = u($value)->trim()->toString();
 
