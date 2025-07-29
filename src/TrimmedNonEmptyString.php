@@ -17,7 +17,7 @@ use function Symfony\Component\String\u;
 
 use Webmozart\Assert\Assert;
 
-final class TrimmedNonEmptyString implements \Stringable
+class TrimmedNonEmptyString implements \Stringable
 {
     /**
      * @var non-empty-string
