@@ -24,6 +24,30 @@ final class TrimmedNonEmptyStringTest extends TestCase
     /**
      * @test
      */
+    public function constructor(): void
+    {
+        $value = self::faker()->word;
+
+        $string = new TrimmedNonEmptyString($value);
+
+        static::assertSame($value, $string->toString());
+        static::assertSame($value, (string) $string);
+    }
+
+    /**
+     * @test
+     */
+    public function constructorThrowsCustomExceptionMessage(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('foo');
+
+        new TrimmedNonEmptyString('', 'foo');
+    }
+
+    /**
+     * @test
+     */
     public function from(): void
     {
         $value = self::faker()->word;
@@ -37,6 +61,17 @@ final class TrimmedNonEmptyStringTest extends TestCase
     /**
      * @test
      */
+    public function fromThrowsCustomExceptionMessage(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('foo');
+
+        TrimmedNonEmptyString::from('', 'foo');
+    }
+
+    /**
+     * @test
+     */
     public function fromString(): void
     {
         $value = self::faker()->word;
@@ -45,6 +80,17 @@ final class TrimmedNonEmptyStringTest extends TestCase
 
         static::assertSame($value, $string->toString());
         static::assertSame($value, (string) $string);
+    }
+
+    /**
+     * @test
+     */
+    public function fromStringThrowsCustomExceptionMessage(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('foo');
+
+        TrimmedNonEmptyString::fromString('', 'foo');
     }
 
     /**

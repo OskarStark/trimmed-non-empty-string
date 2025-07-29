@@ -22,12 +22,12 @@ final class TrimmedNonEmptyString implements \Stringable
     /**
      * @var non-empty-string
      */
-    private string $value;
+    protected string $value;
 
     /**
      * @throws \InvalidArgumentException
      */
-    private function __construct(string $value, string $exceptionMessage)
+    public function __construct(string $value, string $exceptionMessage = '')
     {
         $value = u($value)->trim()->toString();
 
