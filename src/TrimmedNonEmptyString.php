@@ -22,7 +22,7 @@ final class TrimmedNonEmptyString implements \Stringable
     /**
      * @var non-empty-string
      */
-    private string $value;
+    protected string $value;
 
     /**
      * @throws \InvalidArgumentException
