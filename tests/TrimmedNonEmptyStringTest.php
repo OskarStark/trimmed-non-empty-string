@@ -17,10 +17,6 @@ use Ergebnis\Test\Util\Helper;
 use OskarStark\Value\TrimmedNonEmptyString;
 use PHPUnit\Framework\TestCase;
 
-final class ExtendedTrimmedNonEmptyString extends TrimmedNonEmptyString
-{
-}
-
 final class TrimmedNonEmptyStringTest extends TestCase
 {
     use Helper;
@@ -154,20 +150,20 @@ final class TrimmedNonEmptyStringTest extends TestCase
         ];
 
         yield 'extended class with same value' => [
-            new ExtendedTrimmedNonEmptyString($value),
-            new ExtendedTrimmedNonEmptyString($value),
+            new class($value) extends TrimmedNonEmptyString {},
+            new class($value) extends TrimmedNonEmptyString {},
             true,
         ];
 
         yield 'extended class with different values' => [
-            new ExtendedTrimmedNonEmptyString('foo'),
-            new ExtendedTrimmedNonEmptyString('bar'),
+            new class('foo') extends TrimmedNonEmptyString {},
+            new class('bar') extends TrimmedNonEmptyString {},
             false,
         ];
 
         yield 'base and extended class with same value' => [
             new TrimmedNonEmptyString($value),
-            new ExtendedTrimmedNonEmptyString($value),
+            new class($value) extends TrimmedNonEmptyString {},
             true,
         ];
     }
