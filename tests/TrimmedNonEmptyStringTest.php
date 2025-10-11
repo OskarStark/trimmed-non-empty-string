@@ -129,126 +129,66 @@ final class TrimmedNonEmptyStringTest extends TestCase
     }
 
     /**
-     * @test
+     * @return \Generator<string, array{TrimmedNonEmptyString, TrimmedNonEmptyString, bool}>
      */
-    public function equalsReturnsTrueForSameValue(): void
+    public static function provideEqualsData(): \Generator
     {
-        $value = self::faker()->word;
+        $value = 'test';
 
-        $string1 = new TrimmedNonEmptyString($value);
-        $string2 = new TrimmedNonEmptyString($value);
+        yield 'same value' => [
+            new TrimmedNonEmptyString($value),
+            new TrimmedNonEmptyString($value),
+            true,
+        ];
 
-        static::assertTrue($string1->equals($string2));
+        yield 'values that trim to same' => [
+            new TrimmedNonEmptyString($value),
+            new TrimmedNonEmptyString('  ' . $value . '  '),
+            true,
+        ];
+
+        yield 'different values' => [
+            new TrimmedNonEmptyString('foo'),
+            new TrimmedNonEmptyString('bar'),
+            false,
+        ];
+
+        yield 'extended class with same value' => [
+            new ExtendedTrimmedNonEmptyString($value),
+            new ExtendedTrimmedNonEmptyString($value),
+            true,
+        ];
+
+        yield 'extended class with different values' => [
+            new ExtendedTrimmedNonEmptyString('foo'),
+            new ExtendedTrimmedNonEmptyString('bar'),
+            false,
+        ];
+
+        yield 'base and extended class with same value' => [
+            new TrimmedNonEmptyString($value),
+            new ExtendedTrimmedNonEmptyString($value),
+            true,
+        ];
     }
 
     /**
      * @test
+     *
+     * @dataProvider provideEqualsData
      */
-    public function equalsReturnsTrueForValuesThatTrimToSame(): void
+    public function equals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
     {
-        $value = self::faker()->word;
-
-        $string1 = new TrimmedNonEmptyString($value);
-        $string2 = new TrimmedNonEmptyString('  ' . $value . '  ');
-
-        static::assertTrue($string1->equals($string2));
+        static::assertSame($expected, $string1->equals($string2));
     }
 
     /**
      * @test
+     *
+     * @dataProvider provideEqualsData
      */
-    public function equalsReturnsFalseForDifferentValues(): void
+    public function notEquals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
     {
-        $string1 = new TrimmedNonEmptyString(self::faker()->word);
-        $string2 = new TrimmedNonEmptyString(self::faker()->word);
-
-        static::assertFalse($string1->equals($string2));
-    }
-
-    /**
-     * @test
-     */
-    public function notEqualsReturnsFalseForSameValue(): void
-    {
-        $value = self::faker()->word;
-
-        $string1 = new TrimmedNonEmptyString($value);
-        $string2 = new TrimmedNonEmptyString($value);
-
-        static::assertFalse($string1->notEquals($string2));
-    }
-
-    /**
-     * @test
-     */
-    public function notEqualsReturnsFalseForValuesThatTrimToSame(): void
-    {
-        $value = self::faker()->word;
-
-        $string1 = new TrimmedNonEmptyString($value);
-        $string2 = new TrimmedNonEmptyString('  ' . $value . '  ');
-
-        static::assertFalse($string1->notEquals($string2));
-    }
-
-    /**
-     * @test
-     */
-    public function notEqualsReturnsTrueForDifferentValues(): void
-    {
-        $string1 = new TrimmedNonEmptyString(self::faker()->word);
-        $string2 = new TrimmedNonEmptyString(self::faker()->word);
-
-        static::assertTrue($string1->notEquals($string2));
-    }
-
-    /**
-     * @test
-     */
-    public function equalsWorksWithExtendedClass(): void
-    {
-        $value = self::faker()->word;
-
-        $string1 = new ExtendedTrimmedNonEmptyString($value);
-        $string2 = new ExtendedTrimmedNonEmptyString($value);
-
-        static::assertTrue($string1->equals($string2));
-    }
-
-    /**
-     * @test
-     */
-    public function notEqualsWorksWithExtendedClass(): void
-    {
-        $string1 = new ExtendedTrimmedNonEmptyString(self::faker()->word);
-        $string2 = new ExtendedTrimmedNonEmptyString(self::faker()->word);
-
-        static::assertTrue($string1->notEquals($string2));
-    }
-
-    /**
-     * @test
-     */
-    public function equalsReturnsTrueWhenComparingBaseAndExtendedClassWithSameValue(): void
-    {
-        $value = self::faker()->word;
-
-        $string1 = new TrimmedNonEmptyString($value);
-        $string2 = new ExtendedTrimmedNonEmptyString($value);
-
-        static::assertTrue($string1->equals($string2));
-    }
-
-    /**
-     * @test
-     */
-    public function notEqualsReturnsFalseWhenComparingBaseAndExtendedClassWithSameValue(): void
-    {
-        $value = self::faker()->word;
-
-        $string1 = new TrimmedNonEmptyString($value);
-        $string2 = new ExtendedTrimmedNonEmptyString($value);
-
-        static::assertFalse($string1->notEquals($string2));
+        static::assertSame(!$expected, $string1->notEquals($string2));
     }
 }
