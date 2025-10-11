@@ -17,6 +17,10 @@ use Ergebnis\Test\Util\Helper;
 use OskarStark\Value\TrimmedNonEmptyString;
 use PHPUnit\Framework\TestCase;
 
+final class ExtendedTrimmedNonEmptyString extends TrimmedNonEmptyString
+{
+}
+
 final class TrimmedNonEmptyStringTest extends TestCase
 {
     use Helper;
@@ -196,5 +200,55 @@ final class TrimmedNonEmptyStringTest extends TestCase
         $string2 = new TrimmedNonEmptyString(self::faker()->word);
 
         static::assertTrue($string1->notEquals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function equalsWorksWithExtendedClass(): void
+    {
+        $value = self::faker()->word;
+
+        $string1 = new ExtendedTrimmedNonEmptyString($value);
+        $string2 = new ExtendedTrimmedNonEmptyString($value);
+
+        static::assertTrue($string1->equals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function notEqualsWorksWithExtendedClass(): void
+    {
+        $string1 = new ExtendedTrimmedNonEmptyString(self::faker()->word);
+        $string2 = new ExtendedTrimmedNonEmptyString(self::faker()->word);
+
+        static::assertTrue($string1->notEquals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function equalsReturnsTrueWhenComparingBaseAndExtendedClassWithSameValue(): void
+    {
+        $value = self::faker()->word;
+
+        $string1 = new TrimmedNonEmptyString($value);
+        $string2 = new ExtendedTrimmedNonEmptyString($value);
+
+        static::assertTrue($string1->equals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function notEqualsReturnsFalseWhenComparingBaseAndExtendedClassWithSameValue(): void
+    {
+        $value = self::faker()->word;
+
+        $string1 = new TrimmedNonEmptyString($value);
+        $string2 = new ExtendedTrimmedNonEmptyString($value);
+
+        static::assertFalse($string1->notEquals($string2));
     }
 }
