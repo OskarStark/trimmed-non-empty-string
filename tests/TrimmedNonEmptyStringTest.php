@@ -123,4 +123,78 @@ final class TrimmedNonEmptyStringTest extends TestCase
 
         TrimmedNonEmptyString::fromString($value);
     }
+
+    /**
+     * @test
+     */
+    public function equalsReturnsTrueForSameValue(): void
+    {
+        $value = self::faker()->word;
+
+        $string1 = new TrimmedNonEmptyString($value);
+        $string2 = new TrimmedNonEmptyString($value);
+
+        static::assertTrue($string1->equals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function equalsReturnsTrueForValuesThatTrimToSame(): void
+    {
+        $value = self::faker()->word;
+
+        $string1 = new TrimmedNonEmptyString($value);
+        $string2 = new TrimmedNonEmptyString('  ' . $value . '  ');
+
+        static::assertTrue($string1->equals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function equalsReturnsFalseForDifferentValues(): void
+    {
+        $string1 = new TrimmedNonEmptyString(self::faker()->word);
+        $string2 = new TrimmedNonEmptyString(self::faker()->word);
+
+        static::assertFalse($string1->equals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function notEqualsReturnsFalseForSameValue(): void
+    {
+        $value = self::faker()->word;
+
+        $string1 = new TrimmedNonEmptyString($value);
+        $string2 = new TrimmedNonEmptyString($value);
+
+        static::assertFalse($string1->notEquals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function notEqualsReturnsFalseForValuesThatTrimToSame(): void
+    {
+        $value = self::faker()->word;
+
+        $string1 = new TrimmedNonEmptyString($value);
+        $string2 = new TrimmedNonEmptyString('  ' . $value . '  ');
+
+        static::assertFalse($string1->notEquals($string2));
+    }
+
+    /**
+     * @test
+     */
+    public function notEqualsReturnsTrueForDifferentValues(): void
+    {
+        $string1 = new TrimmedNonEmptyString(self::faker()->word);
+        $string2 = new TrimmedNonEmptyString(self::faker()->word);
+
+        static::assertTrue($string1->notEquals($string2));
+    }
 }
