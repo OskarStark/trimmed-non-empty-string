@@ -64,4 +64,14 @@ class TrimmedNonEmptyString implements \Stringable
     {
         return $this->value;
     }
+
+    public function equals(self $other): bool
+    {
+        return $this->toString() === $other->toString();
+    }
+
+    public function notEquals(self $other): bool
+    {
+        return !$this->equals($other);
+    }
 }

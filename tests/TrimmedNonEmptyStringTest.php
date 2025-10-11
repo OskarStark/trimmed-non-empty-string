@@ -123,4 +123,68 @@ final class TrimmedNonEmptyStringTest extends TestCase
 
         TrimmedNonEmptyString::fromString($value);
     }
+
+    /**
+     * @return \Generator<string, array{TrimmedNonEmptyString, TrimmedNonEmptyString, bool}>
+     */
+    public static function provideEqualsData(): \Generator
+    {
+        $value = 'test';
+
+        yield 'same value' => [
+            new TrimmedNonEmptyString($value),
+            new TrimmedNonEmptyString($value),
+            true,
+        ];
+
+        yield 'values that trim to same' => [
+            new TrimmedNonEmptyString($value),
+            new TrimmedNonEmptyString('  ' . $value . '  '),
+            true,
+        ];
+
+        yield 'different values' => [
+            new TrimmedNonEmptyString('foo'),
+            new TrimmedNonEmptyString('bar'),
+            false,
+        ];
+
+        yield 'extended class with same value' => [
+            new class($value) extends TrimmedNonEmptyString {},
+            new class($value) extends TrimmedNonEmptyString {},
+            true,
+        ];
+
+        yield 'extended class with different values' => [
+            new class('foo') extends TrimmedNonEmptyString {},
+            new class('bar') extends TrimmedNonEmptyString {},
+            false,
+        ];
+
+        yield 'base and extended class with same value' => [
+            new TrimmedNonEmptyString($value),
+            new class($value) extends TrimmedNonEmptyString {},
+            true,
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider provideEqualsData
+     */
+    public function equals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
+    {
+        static::assertSame($expected, $string1->equals($string2));
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider provideEqualsData
+     */
+    public function notEquals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
+    {
+        static::assertSame(!$expected, $string1->notEquals($string2));
+    }
 }
