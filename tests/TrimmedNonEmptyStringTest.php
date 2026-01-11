@@ -13,13 +13,14 @@ declare(strict_types=1);
 
 namespace OskarStark\Value\Tests;
 
-use Ergebnis\Test\Util\DataProvider\BoolProvider;
-use Ergebnis\Test\Util\DataProvider\FloatProvider;
-use Ergebnis\Test\Util\DataProvider\IntProvider;
-use Ergebnis\Test\Util\DataProvider\NullProvider;
-use Ergebnis\Test\Util\DataProvider\ObjectProvider;
-use Ergebnis\Test\Util\DataProvider\StringProvider;
-use Ergebnis\Test\Util\Helper;
+use Ergebnis\DataProvider\BoolProvider;
+use Ergebnis\DataProvider\FloatProvider;
+use Ergebnis\DataProvider\IntProvider;
+use Ergebnis\DataProvider\NullProvider;
+use Ergebnis\DataProvider\ObjectProvider;
+use Ergebnis\DataProvider\StringProvider;
+use Faker\Factory;
+use Faker\Generator;
 use OskarStark\Value\TrimmedNonEmptyString;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
@@ -28,12 +29,10 @@ use PHPUnit\Framework\TestCase;
 
 final class TrimmedNonEmptyStringTest extends TestCase
 {
-    use Helper;
-
     #[Test]
     public function constructor(): void
     {
-        $value = self::faker()->word;
+        $value = self::faker()->word();
 
         $string = new TrimmedNonEmptyString($value);
 
@@ -53,7 +52,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
     #[Test]
     public function from(): void
     {
-        $value = self::faker()->word;
+        $value = self::faker()->word();
 
         $string = TrimmedNonEmptyString::from($value);
 
@@ -73,7 +72,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
     #[Test]
     public function fromString(): void
     {
-        $value = self::faker()->word;
+        $value = self::faker()->word();
 
         $string = TrimmedNonEmptyString::fromString($value);
 
@@ -171,5 +170,10 @@ final class TrimmedNonEmptyStringTest extends TestCase
     public function notEquals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
     {
         static::assertSame(!$expected, $string1->notEquals($string2));
+    }
+
+    private static function faker(): Generator
+    {
+        return Factory::create();
     }
 }
