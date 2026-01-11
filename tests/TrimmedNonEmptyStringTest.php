@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of oskarstark/trimmed-non-empty-string.
  *
  * (c) Oskar Stark <oskarstark@googlemail.com>
@@ -36,8 +36,8 @@ final class TrimmedNonEmptyStringTest extends TestCase
 
         $string = new TrimmedNonEmptyString($value);
 
-        static::assertSame($value, $string->toString());
-        static::assertSame($value, (string) $string);
+        self::assertSame($value, $string->toString());
+        self::assertSame($value, (string) $string);
     }
 
     #[Test]
@@ -56,8 +56,8 @@ final class TrimmedNonEmptyStringTest extends TestCase
 
         $string = TrimmedNonEmptyString::from($value);
 
-        static::assertSame($value, $string->toString());
-        static::assertSame($value, (string) $string);
+        self::assertSame($value, $string->toString());
+        self::assertSame($value, (string) $string);
     }
 
     #[Test]
@@ -76,8 +76,8 @@ final class TrimmedNonEmptyStringTest extends TestCase
 
         $string = TrimmedNonEmptyString::fromString($value);
 
-        static::assertSame($value, $string->toString());
-        static::assertSame($value, (string) $string);
+        self::assertSame($value, $string->toString());
+        self::assertSame($value, (string) $string);
     }
 
     #[Test]
@@ -114,10 +114,24 @@ final class TrimmedNonEmptyStringTest extends TestCase
         TrimmedNonEmptyString::fromString($value);
     }
 
+    #[Test]
+    #[DataProvider('provideEqualsData')]
+    public function equals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
+    {
+        self::assertSame($expected, $string1->equals($string2));
+    }
+
+    #[Test]
+    #[DataProvider('provideEqualsData')]
+    public function notEquals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
+    {
+        self::assertSame(!$expected, $string1->notEquals($string2));
+    }
+
     /**
      * @return \Generator<string, array{TrimmedNonEmptyString, TrimmedNonEmptyString, bool}>
      */
-    public static function provideEqualsData(): \Generator
+    public static function provideEqualsData(): iterable
     {
         $value = 'test';
 
@@ -156,20 +170,6 @@ final class TrimmedNonEmptyStringTest extends TestCase
             new class($value) extends TrimmedNonEmptyString {},
             true,
         ];
-    }
-
-    #[Test]
-    #[DataProvider('provideEqualsData')]
-    public function equals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
-    {
-        static::assertSame($expected, $string1->equals($string2));
-    }
-
-    #[Test]
-    #[DataProvider('provideEqualsData')]
-    public function notEquals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
-    {
-        static::assertSame(!$expected, $string1->notEquals($string2));
     }
 
     private static function faker(): Generator

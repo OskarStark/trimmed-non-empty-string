@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of oskarstark/trimmed-non-empty-string.
  *
  * (c) Oskar Stark <oskarstark@googlemail.com>
@@ -13,9 +13,8 @@ declare(strict_types=1);
 
 namespace OskarStark\Value;
 
-use function Symfony\Component\String\u;
-
 use Webmozart\Assert\Assert;
+use function Symfony\Component\String\u;
 
 class TrimmedNonEmptyString implements \Stringable
 {
