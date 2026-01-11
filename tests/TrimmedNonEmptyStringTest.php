@@ -13,17 +13,24 @@ declare(strict_types=1);
 
 namespace OskarStark\Value\Tests;
 
+use Ergebnis\Test\Util\DataProvider\BoolProvider;
+use Ergebnis\Test\Util\DataProvider\FloatProvider;
+use Ergebnis\Test\Util\DataProvider\IntProvider;
+use Ergebnis\Test\Util\DataProvider\NullProvider;
+use Ergebnis\Test\Util\DataProvider\ObjectProvider;
+use Ergebnis\Test\Util\DataProvider\StringProvider;
 use Ergebnis\Test\Util\Helper;
 use OskarStark\Value\TrimmedNonEmptyString;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class TrimmedNonEmptyStringTest extends TestCase
 {
     use Helper;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructor(): void
     {
         $value = self::faker()->word;
@@ -34,9 +41,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
         static::assertSame($value, (string) $string);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructorThrowsCustomExceptionMessage(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -45,9 +50,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
         new TrimmedNonEmptyString('', 'foo');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function from(): void
     {
         $value = self::faker()->word;
@@ -58,9 +61,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
         static::assertSame($value, (string) $string);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function fromThrowsCustomExceptionMessage(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -69,9 +70,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
         TrimmedNonEmptyString::from('', 'foo');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function fromString(): void
     {
         $value = self::faker()->word;
@@ -82,9 +81,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
         static::assertSame($value, (string) $string);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function fromStringThrowsCustomExceptionMessage(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -93,17 +90,14 @@ final class TrimmedNonEmptyStringTest extends TestCase
         TrimmedNonEmptyString::fromString('', 'foo');
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::blank()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::empty()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\NullProvider::null()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\ObjectProvider::object()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\BoolProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\FloatProvider::arbitrary()
-     */
+    #[Test]
+    #[DataProviderExternal(StringProvider::class, 'blank')]
+    #[DataProviderExternal(StringProvider::class, 'empty')]
+    #[DataProviderExternal(IntProvider::class, 'arbitrary')]
+    #[DataProviderExternal(NullProvider::class, 'null')]
+    #[DataProviderExternal(ObjectProvider::class, 'object')]
+    #[DataProviderExternal(BoolProvider::class, 'arbitrary')]
+    #[DataProviderExternal(FloatProvider::class, 'arbitrary')]
     public function fromThrowsInvalidArgumentExceptionWithValue(mixed $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -111,12 +105,9 @@ final class TrimmedNonEmptyStringTest extends TestCase
         TrimmedNonEmptyString::from($value);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::blank()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::empty()
-     */
+    #[Test]
+    #[DataProviderExternal(StringProvider::class, 'blank')]
+    #[DataProviderExternal(StringProvider::class, 'empty')]
     public function fromStringThrowsInvalidArgumentExceptionWithValue(string $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -139,7 +130,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
 
         yield 'values that trim to same' => [
             new TrimmedNonEmptyString($value),
-            new TrimmedNonEmptyString('  ' . $value . '  '),
+            new TrimmedNonEmptyString('  '.$value.'  '),
             true,
         ];
 
@@ -168,21 +159,15 @@ final class TrimmedNonEmptyStringTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideEqualsData
-     */
+    #[Test]
+    #[DataProvider('provideEqualsData')]
     public function equals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
     {
         static::assertSame($expected, $string1->equals($string2));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideEqualsData
-     */
+    #[Test]
+    #[DataProvider('provideEqualsData')]
     public function notEquals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
     {
         static::assertSame(!$expected, $string1->notEquals($string2));
