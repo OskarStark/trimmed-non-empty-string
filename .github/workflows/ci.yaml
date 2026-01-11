@@ -53,7 +53,7 @@ jobs:
               uses: "ramsey/composer-install@v3"
 
             - name: "Run a static code analysis with phpstan/phpstan and default configuration"
-              run: "vendor/bin/phpstan analyse --configuration=phpstan.neon --no-progress"
+              run: "vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-progress"
 
     tests:
         name: "PHP ${{ matrix.php-version }} + ${{ matrix.dependencies }}"
