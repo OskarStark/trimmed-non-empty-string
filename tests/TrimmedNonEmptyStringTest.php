@@ -125,7 +125,7 @@ final class TrimmedNonEmptyStringTest extends TestCase
     #[DataProvider('provideEqualsData')]
     public function notEquals(TrimmedNonEmptyString $string1, TrimmedNonEmptyString $string2, bool $expected): void
     {
-        self::assertSame(!$expected, $string1->notEquals($string2));
+        self::assertNotSame($expected, $string1->notEquals($string2));
     }
 
     /**
