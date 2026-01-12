@@ -9,7 +9,7 @@ static-code-analysis-baseline: vendor ## Generates a baseline for static code an
 
 .PHONY: cs
 cs:
-	PHP_CS_FIXER_IGNORE_ENV=1 symfony php vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --diff --verbose
+	symfony php vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --diff --verbose
 
 .PHONY: test
 test:

@@ -32,7 +32,7 @@ jobs:
               run: "composer normalize"
 
             - name: "Run friendsofphp/php-cs-fixer"
-              run: "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --diff --verbose"
+              run: "vendor/bin/php-cs-fixer fix --diff --verbose"
 
     static-code-analysis:
         name: "Static Code Analysis"
