@@ -26,7 +26,7 @@ jobs:
               run: "composer validate"
 
             - name: "Install dependencies with composer"
-              uses: "ramsey/composer-install@v3"
+              uses: "ramsey/composer-install@v4"
 
             - name: "Composer normalize"
               run: "composer normalize"
@@ -50,7 +50,7 @@ jobs:
                   php-version: "8.2"
 
             - name: "Install dependencies with composer"
-              uses: "ramsey/composer-install@v3"
+              uses: "ramsey/composer-install@v4"
 
             - name: "Run rector/rector"
               run: "vendor/bin/rector --dry-run"
@@ -71,7 +71,7 @@ jobs:
                   php-version: "8.2"
 
             - name: "Install dependencies with composer"
-              uses: "ramsey/composer-install@v3"
+              uses: "ramsey/composer-install@v4"
 
             - name: "Run a static code analysis with phpstan/phpstan and default configuration"
               run: "vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-progress"
@@ -110,7 +110,7 @@ jobs:
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
             - name: "Composer install"
-              uses: "ramsey/composer-install@v3"
+              uses: "ramsey/composer-install@v4"
               with:
                   dependency-versions: "${{ matrix.dependencies }}"
                   composer-options: "--prefer-dist"
